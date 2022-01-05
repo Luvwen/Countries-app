@@ -1,13 +1,82 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100px;
+}
+
+.navbar__logo {
+  padding-left: 75px;
+  font-weight: bold;
+  font-size: 1.7em;
+  line-height: 50px;
+}
+
+.navbar__mode {
+  padding-right: 75px;
+  padding-top: 2px;
+  font-weight: bold;
+  font-size: 1.5em;
+  line-height: 50px;
+}
+
+.input-container {
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-container div {
+  display: flex;
+}
+
+ion-icon {
+  position: relative;
+  left: 85px;
+  height: 23px;
+  width: 23px;
+}
+
+.input-container-form {
+  padding-left: 100px;
+}
+
+.input-container-form__input {
+  height: 20px;
+  border: 1px solid lightgray;
+  border-radius: 7px;
+}
+
+.input-container__options {
+  margin-right: 200px;
+  border: none;
+  width: 150px;
+}
+
+.countries-container {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  margin: 50px 0px 0px 50px;
+}
+
+.countries-container img {
+  height: 200px;
+  width: 250px;
+}
+
+.country-region img {
+  height: 200px;
+  width: 250px;
+}
+
+.display-flex {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  column-gap: 250px;
 }
