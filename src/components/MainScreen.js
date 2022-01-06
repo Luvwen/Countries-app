@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from '../hooks/useForm';
 import { Countries } from './Countries';
+import { CountriesInfo } from './CountriesInfo';
 
 export const MainScreen = () => {
   const [values, handleInputChange, reset] = useForm({ country: '' });
@@ -42,54 +43,88 @@ export const MainScreen = () => {
     }
   }, [selectedRegion]);
 
+  const [transition, setTransition] = useState(false);
+
+  const [info, setInfo] = useState();
+
+  const [data, setData] = useState([]);
+
+  const handleClickFlag = (e) => {
+    setInfo(e.target.alt);
+
+    setTimeout(() => {
+      setTransition(true);
+    }, 250);
+
+    fetch(`https://restcountries.com/v2/name/${e.target.alt}`)
+      .then((response) => response.json())
+      .then((d) => setData([d[0]]));
+  };
+
+  const handleBack = () => {
+    setTransition(false);
+  };
+
   return (
     <div className='wrapper'>
       <div className='navbar'>
         <p className='navbar__logo'>Where in the world?</p>
         <p className='navbar__mode'>Dark/Light mode</p>
       </div>
-      <div className='input-container'>
-        <div>
-          <ion-icon name='search-circle-outline'></ion-icon>
-          <form className='input-container-form' onSubmit={handleSubmit}>
-            <input
-              className='input-container-form__input'
-              type='text'
-              placeholder='Search for a country...'
-              value={country}
-              name='country'
-              onChange={handleInputChange}
-            />
-          </form>
+      {transition ? (
+        <button className='button' onClick={handleBack}>
+          <ion-icon name='arrow-back-circle-sharp'></ion-icon> Back
+        </button>
+      ) : (
+        <div className='input-container'>
+          <div>
+            <ion-icon name='search-circle-outline'></ion-icon>
+            <form className='input-container-form' onSubmit={handleSubmit}>
+              <input
+                className='input-container-form__input'
+                type='text'
+                placeholder='Search for a country...'
+                value={country}
+                name='country'
+                onChange={handleInputChange}
+              />
+            </form>
+          </div>
+          <select onChange={handleSelect} className='input-container__options'>
+            <option value=''>Select a region</option>
+            <option value='Africa'>Africa</option>
+            <option value='America'>America</option>
+            <option value='Asia'>Asia</option>
+            <option value='Europe'>Europe</option>
+            <option value='Oceania'>Oceania</option>
+          </select>
         </div>
-        <select onChange={handleSelect} className='input-container__options'>
-          <option value=''>Select a region</option>
-          <option value='Africa'>Africa</option>
-          <option value='America'>America</option>
-          <option value='Asia'>Asia</option>
-          <option value='Europe'>Europe</option>
-          <option value='Oceania'>Oceania</option>
-        </select>
-      </div>
-      <div className={!Loading ? 'countries-container' : ''}>
-        {Loading ? (
-          <Countries country={city} />
-        ) : (
-          countryInfo.map((element, index) => (
-            <div key={index}>
-              <div>
-                <img
-                  src={element.flags.png}
-                  alt='country flag'
-                  height='200px'
-                  width='200px'
-                ></img>
-                <p>{element.name.common}</p>
+      )}
+      {!transition ? (
+        <div className={!Loading ? 'countries-container ' : ''}>
+          {Loading ? (
+            <Countries country={city} />
+          ) : (
+            countryInfo.map((element, index) => (
+              <div key={index}>
+                <div>
+                  <img
+                    onClick={handleClickFlag}
+                    src={element.flags.png}
+                    alt={element.name.common}
+                    height='200px'
+                    width='200px'
+                  ></img>
+                  <p>{element.name.common}</p>
+                </div>
               </div>
-            </div>
-          ))
-        )}
-      </div>
+            ))
+          )}
+        </div>
+      ) : (
+        <CountriesInfo props={countryInfo} info={info} data={data} />
+      )}
+      {/* {transition ? <CountriesInfo /> : ''} */}
     </div>
   );
 };

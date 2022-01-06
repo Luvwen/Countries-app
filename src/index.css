@@ -36,7 +36,7 @@ body {
   display: flex;
 }
 
-ion-icon {
+.input-container ion-icon {
   position: relative;
   left: 85px;
   height: 23px;
@@ -79,4 +79,42 @@ ion-icon {
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
   column-gap: 250px;
+}
+
+.countries-information {
+  display: flex;
+  width: 100%;
+  margin-top: 150px;
+  margin-left: 300px;
+}
+
+.countries-information img {
+  height: 350px;
+  width: 500px;
+  margin-right: 100px;
+}
+
+.countries-info {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 25% 25% 25% 25%;
+  width: 500px;
+}
+
+.countries-info p {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.button {
+  margin-left: 100px;
+  height: 35px;
+  width: 120px;
+}
+
+ion-icon {
+  font-weight: bold;
+  position: relative;
+  top: 1px;
+  right: 10px;
 }
