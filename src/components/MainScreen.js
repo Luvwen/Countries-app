@@ -60,18 +60,37 @@ export const MainScreen = () => {
       .then((response) => response.json())
       .then((d) => setData([d[0]]));
   };
+  const [secondTransition, setSecondTransition] = useState(false);
+  const [showInformation, setShowInformation] = useState(false);
 
   const handleBack = () => {
     setTransition(false);
+    setSecondTransition(false);
+    setShowInformation(false);
+  };
+
+  const transitionToChild = () => {
+    setSecondTransition(true);
+  };
+
+  const infoToChild = () => {
+    setShowInformation(true);
+  };
+
+  const handleChangeBackground = () => {
+    const body = document.querySelector('body');
+    body.classList.toggle('black-color');
   };
 
   return (
     <div className='wrapper'>
       <div className='navbar'>
         <p className='navbar__logo'>Where in the world?</p>
-        <p className='navbar__mode'>Dark/Light mode</p>
+        <p onClick={handleChangeBackground} className='navbar__mode'>
+          Dark/Light mode
+        </p>
       </div>
-      {transition ? (
+      {transition || secondTransition ? (
         <button className='button' onClick={handleBack}>
           <ion-icon name='arrow-back-circle-sharp'></ion-icon> Back
         </button>
@@ -100,10 +119,15 @@ export const MainScreen = () => {
           </select>
         </div>
       )}
-      {!transition ? (
+      {!transition || secondTransition ? (
         <div className={!Loading ? 'countries-container ' : ''}>
           {Loading ? (
-            <Countries country={city} />
+            <Countries
+              country={city}
+              transitionToChild={transitionToChild}
+              infoToChild={infoToChild}
+              showInformation={showInformation}
+            />
           ) : (
             countryInfo.map((element, index) => (
               <div key={index}>

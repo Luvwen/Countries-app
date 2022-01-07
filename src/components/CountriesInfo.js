@@ -1,7 +1,6 @@
 import React from 'react';
 
 export const CountriesInfo = ({ props, info, data }) => {
-  console.log(data);
   // console.log(data.borders);
 
   return (

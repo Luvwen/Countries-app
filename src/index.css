@@ -118,3 +118,16 @@ ion-icon {
   top: 1px;
   right: 10px;
 }
+
+/* .countries-information button {
+  position: absolute;
+  top: 100px;
+  height: 35px;
+  width: 120px;
+  left: 100px;
+} */
+
+.black-color {
+  background-color: #21232f;
+  color: white;
+}
